@@ -3,7 +3,7 @@ class db{
     private $servername = "localhost";
     private $username = "root";
     private $password = "";
-    private $db_name = "quiz";
+    private $db_name = "testCuaHangThoiDai";
 
     public function connect(){
         $this->conn = null;
