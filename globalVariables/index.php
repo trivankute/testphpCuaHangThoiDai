@@ -11,6 +11,8 @@
     include_once("../../model/user.php");
     include_once("../../model/question.php");
 ///////////////////////////////////////////////////////
+// for Cloudinary
+    use Cloudinary\Configuration\Configuration;
 // for composer ** must import in each file 
     use Firebase\JWT\JWT;
     use Firebase\JWT\Key;
@@ -24,4 +26,12 @@
     $accessToken = false;
     $refreshToken = false;
 
+    //  Or configure programatically
+    
+    $config = Configuration::instance();
+    $config->cloud->cloudName = 'dotr7u5kq';
+    $config->cloud->apiKey = '134487557496353';
+    $config->cloud->apiSecret = 'zMIHrTp6nE36mC6J6bcRDXcKg8o';
+    $config->url->secure = true;
+    
 ?>
