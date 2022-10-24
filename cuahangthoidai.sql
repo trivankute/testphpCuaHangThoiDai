@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2022 at 11:01 AM
+-- Generation Time: Oct 24, 2022 at 11:05 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -803,6 +803,30 @@ INSERT INTO `disks` (`id`, `name`, `price`, `img`, `page`, `author`, `type`, `ti
 (755, 'DAMIEN RICE - O - ĐĨA CD', 420, 'https://product.hstatic.net/1000304920/product/upload_1fe43477166643d093aaab0beac001dd_grande.jpg', 20, 'DAMIEN RICE ', ' ĐĨA CD', ' O '),
 (756, 'CIARA - FANTASY RIDE - ĐĨA CD', 310, 'https://product.hstatic.net/1000304920/product/ciara_-_fantasy_ride_-_dia_cd_grande.jpg', 20, 'CIARA ', ' ĐĨA CD', ' FANTASY RIDE ');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `createAt` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`, `createAt`) VALUES
+(1, 'trivandeptrai', 'trivandeptrai', '2022-10-17 04:59:42'),
+(6, 'triliemdeptrai', 'triliemdeptrai', '2022-10-17 05:07:44'),
+(8, 'trivan', '$2y$12$m6UXbhXl7hKnI68Hp3LNlu5.RKsKnhA.jqMMPGKQmUecFG3E/TWbK', '2022-10-17 06:14:19'),
+(9, 'triliem', '$2y$12$G18TXCax.duvrQCt.90HKuhMFJRmOSO7fOw5F6Ne9LlixTdN44mD6', '2022-10-17 13:58:41'),
+(11, 'a', '$2y$12$1Vf/8ujpTODfAv.k./dhreK7qraru5ab9sTu/gClV/.Xod8HhgMhG', '2022-10-17 14:00:58');
+
 --
 -- Indexes for dumped tables
 --
@@ -814,6 +838,13 @@ ALTER TABLE `disks`
   ADD PRIMARY KEY (`id`,`author`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -822,6 +853,12 @@ ALTER TABLE `disks`
 --
 ALTER TABLE `disks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=757;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
