@@ -6,6 +6,8 @@
 
     // Upload the image
     $upload = new UploadApi();
-    $result = (new UploadApi())->upload($_FILES['image']["tmp_name"]);
+    $result = (new UploadApi())->upload($_FILES['image']["tmp_name"],
+    [
+        "folder" => "cuahangthoidai/"]);
     echo json_encode($result);
 ?>
