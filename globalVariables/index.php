@@ -9,7 +9,6 @@
 ///////////////////////////////////////////////////////
     // models
     include_once("../../model/user.php");
-    include_once("../../model/question.php");
 ///////////////////////////////////////////////////////
 // for Cloudinary
     use Cloudinary\Configuration\Configuration;
@@ -21,7 +20,6 @@
     $conn = $db->connect();
 // for model
     $user = new User($conn);
-    $question = new Question($conn);
 // for Tokens
     $accessToken = false;
     $refreshToken = false;
