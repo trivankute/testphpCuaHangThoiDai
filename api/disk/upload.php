@@ -2,6 +2,7 @@
 <?php
     include_once("../../vendor/autoload.php");
     include_once("../../globalVariables/index.php");
+    include_once("../../model/disk.php");
     use Cloudinary\Api\Upload\UploadApi;
     
     // Get the data from input
@@ -11,5 +12,14 @@
     $result = (new UploadApi())->upload($_FILES['image']["tmp_name"],
     [
         "folder" => "cuahangthoidai/"]);
-    echo json_encode($result);
+    // Create a disk
+    $disk = new Disk($conn);
+    $disk->name = $data->name;
+    $disk->title = $data->title;
+    $disk->price = $data->price;
+    $disk->author = $data->author;
+    $disk->img = $result["url"];
+    $disk->page = $data->page;
+    $disk->rating = $data->rating;
+    $disk->create_disk();
 ?>
