@@ -18,11 +18,15 @@
 
     $disk->type = $_POST["type"];
     if($author->find_authorId_by_name($disk->author)) {
-        $disk->authorId = $author->id;
+        $disk->authorId = $author->find_authorId_by_name($disk->author);
     } else {
         $author->name = $disk->author;
-        $author->create_author();
-        $disk->authorId = $author->id;
+        if($author->create_author()) {
+            $disk->authorId = $author->find_authorId_by_name($disk->author);
+        }
+        else {
+            echo json_encode(["status"=>"error","message" => "author not created"]);
+        }
     }
     $disk->page = $_POST["page"];
     $disk->rating = $_POST["rating"];

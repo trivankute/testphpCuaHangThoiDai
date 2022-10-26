@@ -3,7 +3,7 @@
         public $id;
         public $name;
         public $conn;
-        
+
         public function __construct($conn = null)
         {
             $this->conn = $conn;
@@ -15,12 +15,12 @@
             $stmt->bindParam(":name", $this->name);
             try {
                 if($stmt->execute()) {
-                    echo json_encode(["status"=>"success", "message"=>"author created successfully"]);
+                    // return author created
+                    return true;
                 }
             } catch(exception $e)
             {
-                printf("%s\n", $e);
-                echo json_encode(["status"=>"error","message" => $e]);   
+                return false;
             }
         }
 
