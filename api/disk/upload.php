@@ -3,23 +3,34 @@
     include_once("../../vendor/autoload.php");
     include_once("../../globalVariables/index.php");
     include_once("../../model/disk.php");
+    include_once("../../model/author.php");
     use Cloudinary\Api\Upload\UploadApi;
-    
-    // Get the data from input
-    $data = json_decode(file_get_contents("php://input"));
-    // Upload the image
-    $upload = new UploadApi();
-    $result = (new UploadApi())->upload($_FILES['image']["tmp_name"],
-    [
-        "folder" => "cuahangthoidai/"]);
-    // Create a disk
+    // create disk
     $disk = new Disk($conn);
-    $disk->name = $data->name;
-    $disk->title = $data->title;
-    $disk->price = $data->price;
-    $disk->author = $data->author;
-    $disk->img = $result["url"];
-    $disk->page = $data->page;
-    $disk->rating = $data->rating;
+    $author = new Author($conn);
+    $disk->name = $_POST["name"];
+
+    $disk->title = $_POST["title"];
+
+    $disk->price = $_POST["price"];
+
+    $disk->author = $_POST["author"];
+
+    $disk->type = $_POST["type"];
+    if($author->find_authorId_by_name($disk->author)) {
+        $disk->authorId = $author->id;
+    } else {
+        $author->name = $disk->author;
+        $author->create_author();
+        $disk->authorId = $author->id;
+    }
+    $disk->page = $_POST["page"];
+    $disk->rating = $_POST["rating"];
+    $upload = new UploadApi();
+    $result = (new UploadApi())->upload($_FILES['img']["tmp_name"],
+    [
+        "folder" => "cuahangthoidai/"]
+    );
+    $disk->img = $result["secure_url"];
     $disk->create_disk();
 ?>
