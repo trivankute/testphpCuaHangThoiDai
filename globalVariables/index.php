@@ -25,11 +25,9 @@
     $refreshToken = false;
 
     //  Or configure programatically
-    
     $config = Configuration::instance();
     $config->cloud->cloudName = 'dotr7u5kq';
     $config->cloud->apiKey = '134487557496353';
     $config->cloud->apiSecret = 'zMIHrTp6nE36mC6J6bcRDXcKg8o';
     $config->url->secure = true;
-    
 ?>
