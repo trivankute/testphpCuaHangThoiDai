@@ -47,5 +47,25 @@
             $stmt->execute();
             return $stmt;
         }
+        public function get_one_disk()
+        {
+            $query="SELECT * FROM disks WHERE name LIKE :name";
+            echo $query;
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":name", $this->name);
+            $stmt->execute();
+            return $stmt;
+        }
+
+
+
+
+
+
+
+
+
+        
+
     }
 ?>
