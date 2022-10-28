@@ -17,6 +17,10 @@
     $disk->author = $_POST["author"];
 
     $disk->type = $_POST["type"];
+    
+    $disk->page = $_POST["page"];
+
+    $disk->rating = $_POST["rating"];
     if($author->find_authorId_by_name($disk->author)) {
         $disk->authorId = $author->find_authorId_by_name($disk->author);
     } else {
@@ -28,13 +32,25 @@
             echo json_encode(["status"=>"error","message" => "author not created"]);
         }
     }
-    $disk->page = $_POST["page"];
-    $disk->rating = $_POST["rating"];
-    $upload = new UploadApi();
-    $result = (new UploadApi())->upload($_FILES['img']["tmp_name"],
-    [
-        "folder" => "cuahangthoidai/"]
-    );
-    $disk->img = $result["secure_url"];
-    $disk->create_disk();
+    $result = $disk->create_disk();
+    
+    if($result) {
+        $upload = new UploadApi();
+        $result = (new UploadApi())->upload($_FILES['img']["tmp_name"],
+        [
+            "folder" => "cuahangthoidai/"]
+        );
+        $disk->img = $result["secure_url"];
+        $imageUpload = $disk->update_disk_image();
+        echo $imageUpload;
+        if($imageUpload) {
+            echo json_encode(["status" => "success", "data" => $disk]);
+        }
+        else {
+            echo json_encode(["status" => "error", "message" => "create disk failed"]);
+        }
+    }
+    else {
+        echo json_encode(["status" => "error", "message" => "create disk failed"]);
+    }
 ?>

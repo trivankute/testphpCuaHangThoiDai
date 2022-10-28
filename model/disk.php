@@ -15,6 +15,7 @@
         public function __construct($conn = null)
         {
             $this->conn = $conn;
+            $this->img = "not found";
         }
         public function create_disk()
         {
@@ -30,14 +31,18 @@
             $stmt->bindParam(":page", $this->page);
             $stmt->bindParam(":rating", $this->rating);
             $stmt->bindParam(":type", $this->type);
+
             try {
                 if($stmt->execute()) {
-                    echo json_encode(["status"=>"success", "message"=>"disk created successfully"]);
+                    // get id from dbs
+                    $this->id = $this->conn->lastInsertId();
+                    // return disk created
+                    return true;
                 }
             } catch(exception $e)
             {
                 printf("%s\n", $e);
-                echo json_encode(["status"=>"error","message" => $e]);   
+                return false;
             }
         }
         public function get_all_disk()
